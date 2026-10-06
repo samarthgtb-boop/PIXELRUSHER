@@ -1,0 +1,1041 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #090b0e;
+  color: #f3f5f7;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* =========================
+   LOADING SCREEN
+========================= */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #08090b;
+  display: grid;
+  place-items: center;
+  transition:
+    opacity 0.7s,
+    visibility 0.7s;
+}
+
+.loader.done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-inner {
+  width: min(480px, 82vw);
+  text-align: center;
+}
+
+.loader-brand {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.loader-status {
+  margin-top: 18px;
+  color: #929aa4;
+  font-size: 14px;
+}
+
+.loader-percent {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 12px 0;
+}
+
+.progress {
+  height: 5px;
+  border-radius: 99px;
+  background: #20252c;
+  overflow: hidden;
+}
+
+.progress div {
+  height: 100%;
+  width: 0;
+  background: #fff;
+  transition: width 0.15s;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav {
+  height: 72px;
+  padding: 0 5vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 50;
+
+  background: rgba(8, 10, 13, 0.72);
+  backdrop-filter: blur(16px);
+
+  border-bottom: 1px solid #20242a;
+}
+
+.brand {
+  color: #fff;
+  text-decoration: none;
+
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.brand span {
+  font-weight: 500;
+  color: #8d96a0;
+}
+
+.nav nav {
+  display: flex;
+  gap: 28px;
+}
+
+.nav nav a {
+  color: #aeb5bd;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav nav a:hover {
+  color: #fff;
+}
+
+.nav-btn,
+.hero-btn,
+.primary-btn,
+.secondary-btn,
+.idea-btn,
+.hud-btn,
+.mini-map-button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav-btn {
+  border: 1px solid #424850;
+  background: #fff;
+  color: #08090b;
+
+  border-radius: 12px;
+
+  padding: 10px 17px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px #0008;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  text-align: center;
+
+  padding: 110px 20px 70px;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      #20262d 0,
+      #0c0f13 36%,
+      #090b0e 70%
+    );
+}
+
+.hero h1 {
+  font-size: clamp(64px, 13vw, 170px);
+
+  line-height: 0.86;
+
+  margin: 10px 0 25px;
+
+  letter-spacing: -0.07em;
+}
+
+.hero p:not(.eyebrow) {
+  font-size: clamp(16px, 2vw, 22px);
+
+  color: #a8afb7;
+}
+
+.eyebrow {
+  font-size: 11px;
+
+  letter-spacing: 0.18em;
+
+  color: #89919b;
+
+  font-weight: 700;
+}
+
+.hero-btn,
+.idea-btn {
+  display: inline-block;
+
+  margin-top: 28px;
+
+  padding: 14px 20px;
+
+  border-radius: 12px;
+
+  background: #f5f5f5;
+
+  color: #08090b;
+
+  text-decoration: none;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.hero-btn:hover,
+.idea-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px #0009;
+}
+
+
+/* =========================
+   GAME SECTION
+========================= */
+
+.game-section {
+  padding: 110px 5vw 80px;
+}
+
+.section-head {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 30px;
+
+  margin-bottom: 28px;
+}
+
+.section-head h2,
+.coming h2,
+.ideas h2 {
+  font-size: clamp(34px, 6vw, 72px);
+
+  letter-spacing: -0.05em;
+
+  margin: 7px 0;
+}
+
+.section-note {
+  max-width: 360px;
+
+  color: #929aa4;
+
+  line-height: 1.6;
+}
+
+
+/* =========================
+   GAME WINDOW
+========================= */
+
+.game-shell {
+  position: relative;
+
+  height: min(76vh, 780px);
+
+  min-height: 540px;
+
+  border: 1px solid #292f36;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  background: #11151a;
+
+  box-shadow: 0 30px 100px #0008;
+}
+
+.game-shell canvas {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =========================
+   OVERLAYS
+========================= */
+
+.overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  background: rgba(5, 7, 9, 0.45);
+
+  backdrop-filter: blur(4px);
+}
+
+.overlay.hidden,
+.hidden {
+  display: none !important;
+}
+
+.menu-card,
+.settings-card {
+  background: rgba(12, 15, 19, 0.94);
+
+  border: 1px solid #343a42;
+
+  border-radius: 20px;
+
+  padding: 34px;
+
+  min-width: min(450px, 88vw);
+
+  box-shadow: 0 25px 70px #0008;
+}
+
+.menu-card h3,
+.settings-card h3 {
+  font-size: 30px;
+
+  margin: 8px 0 12px;
+}
+
+.menu-card > p:not(.eyebrow) {
+  color: #9ca4ad;
+
+  line-height: 1.6;
+}
+
+.menu-actions {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 24px;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 13px 20px;
+
+  border-radius: 11px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+.primary-btn {
+  border: 0;
+
+  background: #fff;
+
+  color: #090b0e;
+}
+
+.secondary-btn {
+  background: #1a1f25;
+
+  border: 1px solid #3a4149;
+
+  color: #fff;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-panel {
+  position: absolute;
+
+  inset: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  background: #0008;
+
+  z-index: 8;
+}
+
+.settings-card {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+
+  right: 15px;
+  top: 12px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #aeb5bd;
+
+  font-size: 30px;
+
+  cursor: pointer;
+}
+
+.toggle-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid #282d33;
+
+  color: #dce1e5;
+}
+
+.toggle-row input {
+  display: none;
+}
+
+.toggle-row i {
+  width: 48px;
+
+  height: 26px;
+
+  border-radius: 99px;
+
+  background: #30363e;
+
+  position: relative;
+
+  cursor: pointer;
+}
+
+.toggle-row i::after {
+  content: "";
+
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  left: 3px;
+  top: 3px;
+
+  border-radius: 50%;
+
+  background: #aaa;
+
+  transition: 0.2s;
+}
+
+.toggle-row input:checked + i {
+  background: #fff;
+}
+
+.toggle-row input:checked + i::after {
+  transform: translateX(22px);
+
+  background: #111;
+}
+
+
+/* =========================
+   HUD
+========================= */
+
+.hud {
+  position: absolute;
+
+  inset: 18px 18px auto;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  z-index: 4;
+
+  pointer-events: none;
+}
+
+.hud-left,
+.hud-right {
+  display: flex;
+
+  gap: 10px;
+
+  align-items: flex-start;
+}
+
+
+/* SPEEDOMETER */
+
+.speed-card {
+  width: 185px;
+
+  padding: 13px 15px;
+
+  border: 1px solid #454c54;
+
+  background: #0c1014d9;
+
+  border-radius: 14px;
+
+  backdrop-filter: blur(8px);
+}
+
+.speed-number {
+  font-size: 32px;
+
+  font-weight: 700;
+}
+
+.speed-number small {
+  font-size: 10px;
+
+  color: #8d96a0;
+}
+
+.speed-bar {
+  height: 4px;
+
+  background: #30363d;
+
+  border-radius: 5px;
+
+  margin-top: 10px;
+}
+
+.speed-bar i {
+  display: block;
+
+  height: 100%;
+
+  width: 0;
+
+  background: #fff;
+
+  border-radius: 5px;
+}
+
+
+/* COMPASS */
+
+.compass {
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: #0c1014d9;
+
+  border: 1px solid #454c54;
+
+  border-radius: 99px;
+
+  padding: 9px 15px;
+
+  font-weight: 700;
+
+  backdrop-filter: blur(8px);
+}
+
+
+/* HUD BUTTONS */
+
+.hud-btn {
+  pointer-events: auto;
+
+  background: #0c1014d9;
+
+  color: #fff;
+
+  border: 1px solid #454c54;
+
+  border-radius: 11px;
+
+  padding: 10px 12px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.hud-btn:hover {
+  background: #252b32;
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   MINI MAP
+========================= */
+
+.mini-map-button {
+  pointer-events: auto;
+
+  width: 104px;
+  height: 104px;
+
+  padding: 0;
+
+  position: relative;
+
+  border: 1px solid #454c54;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  background: #101419;
+
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
+}
+
+.mini-map-button:hover {
+  transform: scale(1.04);
+
+  border-color: #fff;
+}
+
+.mini-map-button canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.mini-map-button span {
+  position: absolute;
+
+  bottom: 4px;
+  right: 7px;
+
+  font-size: 9px;
+
+  background: #000b;
+
+  padding: 2px 4px;
+
+  border-radius: 4px;
+}
+
+
+/* =========================
+   FULL MAP
+========================= */
+
+.map-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 20;
+
+  background: #0a0d11f7;
+
+  padding: 28px;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.map-head {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.map-head h3 {
+  margin: 5px 0;
+
+  font-size: 28px;
+}
+
+.map-overlay #full-map {
+  width: 100%;
+
+  height: calc(100% - 95px);
+
+  margin-top: 15px;
+
+  border: 1px solid #343a42;
+
+  border-radius: 14px;
+
+  background: #11151a;
+}
+
+.map-tip {
+  color: #808993;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   TOUCH CONTROLS
+========================= */
+
+.touch-controls {
+  position: absolute;
+
+  inset: auto 20px 65px;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+
+  z-index: 7;
+}
+
+.touch-controls button {
+  height: 58px;
+
+  border: 1px solid #66707a;
+
+  background: #10151bd9;
+
+  color: #fff;
+
+  border-radius: 14px;
+
+  font-weight: 700;
+
+  touch-action: none;
+}
+
+.touch-controls button:active {
+  background: #fff;
+  color: #000;
+}
+
+.touch-controls button:nth-child(2) {
+  grid-column: 2;
+}
+
+.touch-controls button:nth-child(4) {
+  grid-column: 1;
+}
+
+.touch-controls button:nth-child(5) {
+  grid-column: 3;
+}
+
+
+/* =========================
+   CONTROL STRIP
+========================= */
+
+.controls-strip {
+  position: absolute;
+
+  bottom: 0;
+
+  left: 0;
+  right: 0;
+
+  padding: 11px 16px;
+
+  background: #080a0cd9;
+
+  border-top: 1px solid #333a42;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 22px;
+
+  flex-wrap: wrap;
+
+  color: #929aa4;
+
+  font-size: 11px;
+
+  z-index: 5;
+}
+
+.controls-strip b {
+  color: #e9edf0;
+}
+
+
+/* =========================
+   COMING SOON
+========================= */
+
+.coming {
+  padding: 130px 5vw;
+
+  text-align: center;
+
+  border-top: 1px solid #20242a;
+}
+
+.coming p:not(.eyebrow) {
+  color: #8f97a0;
+}
+
+
+/* =========================
+   IDEAS
+========================= */
+
+.ideas {
+  margin: 0 5vw 80px;
+
+  padding: 45px;
+
+  border: 1px solid #2b3138;
+
+  border-radius: 22px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 30px;
+
+  background: #0d1014;
+
+  transition:
+    border-color 0.25s,
+    transform 0.25s;
+}
+
+.ideas:hover {
+  border-color: #555e67;
+  transform: translateY(-3px);
+}
+
+.ideas p:not(.eyebrow) {
+  color: #929aa4;
+
+  max-width: 620px;
+
+  line-height: 1.6;
+}
+
+.idea-btn {
+  margin: 0;
+
+  white-space: nowrap;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  border-top: 1px solid #20242a;
+
+  padding: 45px 5vw 25px;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.footer-col {
+  padding: 22px;
+
+  border: 1px solid #292f36;
+
+  border-radius: 16px;
+
+  background: #0d1014;
+
+  transition:
+    transform 0.25s,
+    border-color 0.25s,
+    background 0.25s;
+}
+
+.interactive-card:hover {
+  transform: translateY(-4px);
+
+  border-color: #68727c;
+
+  background: #13171c;
+}
+
+.footer-label {
+  display: block;
+
+  color: #7f8892;
+
+  font-size: 10px;
+
+  letter-spacing: 0.15em;
+
+  margin-bottom: 10px;
+}
+
+.footer-col strong {
+  font-size: 15px;
+}
+
+.footer-bottom {
+  grid-column: 1 / -1;
+
+  color: #666f79;
+
+  font-size: 11px;
+
+  margin-top: 12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .nav nav {
+    display: none;
+  }
+
+  .section-head,
+  .ideas {
+    display: block;
+  }
+
+  .section-note {
+    margin-top: 18px;
+  }
+
+  .game-shell {
+    min-height: 520px;
+
+    height: 75vh;
+
+    border-radius: 15px;
+  }
+
+  .speed-card {
+    width: 145px;
+  }
+
+  .speed-number {
+    font-size: 25px;
+  }
+
+  .mini-map-button {
+    width: 82px;
+    height: 82px;
+  }
+
+  .hud-right {
+    display: none;
+  }
+
+  .controls-strip {
+    display: none;
+  }
+
+  .ideas {
+    padding: 30px;
+  }
+
+  .idea-btn {
+    margin-top: 20px;
+  }
+
+  footer {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    grid-column: auto;
+  }
+
+  .hero h1 {
+    font-size: 19vw;
+  }
+
+  .menu-card {
+    padding: 26px;
+  }
+
+  .map-overlay {
+    padding: 15px;
+  }
+}

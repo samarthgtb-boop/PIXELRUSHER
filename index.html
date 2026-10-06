@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pixel Rush — Open City Racer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- =========================
+       LOADING SCREEN
+  ========================== -->
+
+  <div id="loader" class="loader">
+
+    <div class="loader-inner">
+
+      <div class="loader-brand">
+        PIXEL RUSH
+      </div>
+
+      <div id="loader-status" class="loader-status">
+        Loading city
+      </div>
+
+      <div id="loader-percent" class="loader-percent">
+        0%
+      </div>
+
+      <div class="progress">
+        <div id="loader-bar"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <header class="nav">
+
+    <a href="#" class="brand">
+      PIXEL<span>RUSH</span>
+    </a>
+
+    <nav>
+      <a href="#racer">Racer</a>
+      <a href="#coming">Coming Soon</a>
+      <a href="#ideas">Ideas</a>
+    </nav>
+
+    <button id="nav-play" class="nav-btn">
+      PLAY
+    </button>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+      <div class="hero-copy">
+
+        <p class="eyebrow">
+          FREE BROWSER GAMING
+        </p>
+
+        <h1>
+          PIXEL RUSH
+        </h1>
+
+        <p>
+          Drive. Explore. Get lost in the city.
+        </p>
+
+        <a href="#racer" class="hero-btn">
+          ENTER THE CITY
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RACER
+    ========================== -->
+
+    <section id="racer" class="game-section">
+
+      <div class="section-head">
+
+        <div>
+
+          <p class="eyebrow">
+            OPEN CITY / 01
+          </p>
+
+          <h2>
+            PIXEL RACER
+          </h2>
+
+        </div>
+
+        <p class="section-note">
+          Explore the city, avoid traffic and find your own route.
+        </p>
+
+      </div>
+
+
+      <div id="game-shell" class="game-shell">
+
+        <canvas id="game-canvas"></canvas>
+
+
+        <!-- START MENU -->
+
+        <div id="start-overlay" class="overlay">
+
+          <div class="menu-card">
+
+            <p class="eyebrow">
+              PIXEL RUSH CITY
+            </p>
+
+            <h3>
+              READY TO DRIVE?
+            </h3>
+
+            <p>
+              WASD / Arrow Keys to drive · Mouse to look · Space to brake
+            </p>
+
+            <div class="menu-actions">
+
+              <button id="play-btn" class="primary-btn">
+                PLAY
+              </button>
+
+              <button id="settings-btn" class="secondary-btn">
+                SETTINGS
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SETTINGS -->
+
+        <div id="settings-panel" class="settings-panel hidden">
+
+          <div class="settings-card">
+
+            <button id="settings-close" class="close-btn">
+              ×
+            </button>
+
+            <p class="eyebrow">
+              SETTINGS
+            </p>
+
+            <h3>
+              GAME OPTIONS
+            </h3>
+
+
+            <label class="toggle-row">
+
+              <span>
+                Touch controls
+              </span>
+
+              <input
+                id="touch-toggle"
+                type="checkbox"
+              >
+
+              <i></i>
+
+            </label>
+
+
+            <label class="toggle-row">
+
+              <span>
+                Traffic
+              </span>
+
+              <input
+                id="traffic-toggle"
+                type="checkbox"
+                checked
+              >
+
+              <i></i>
+
+            </label>
+
+
+            <label class="toggle-row">
+
+              <span>
+                High quality shadows
+              </span>
+
+              <input
+                id="shadow-toggle"
+                type="checkbox"
+                checked
+              >
+
+              <i></i>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             HUD
+        ========================== -->
+
+        <div id="hud" class="hud hidden">
+
+
+          <div class="hud-left">
+
+
+            <!-- SPEEDOMETER -->
+
+            <div class="speed-card">
+
+              <div class="speed-number">
+
+                <span id="speed">
+                  0
+                </span>
+
+                <small>
+                  KM/H
+                </small>
+
+              </div>
+
+              <div class="speed-bar">
+
+                <i id="speed-fill"></i>
+
+              </div>
+
+            </div>
+
+
+            <!-- MINI MAP -->
+
+            <button
+              id="map-button"
+              class="mini-map-button"
+              title="Open full map"
+            >
+
+              <canvas id="mini-map"></canvas>
+
+              <span>
+                MAP
+              </span>
+
+            </button>
+
+
+          </div>
+
+
+          <!-- COMPASS -->
+
+          <div
+            id="compass"
+            class="compass"
+          >
+            N
+          </div>
+
+
+          <!-- HUD BUTTONS -->
+
+          <div class="hud-right">
+
+            <button
+              id="fullscreen-btn"
+              class="hud-btn"
+            >
+              FULLSCREEN
+            </button>
+
+            <button
+              id="pause-btn"
+              class="hud-btn"
+            >
+              PAUSE
+            </button>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =========================
+             PAUSE
+        ========================== -->
+
+        <div
+          id="pause-overlay"
+          class="overlay hidden"
+        >
+
+          <div class="menu-card">
+
+            <p class="eyebrow">
+              PAUSED
+            </p>
+
+            <h3>
+              TAKE A BREATH
+            </h3>
+
+            <div class="menu-actions">
+
+              <button
+                id="resume-btn"
+                class="primary-btn"
+              >
+                RESUME
+              </button>
+
+              <button
+                id="restart-btn"
+                class="secondary-btn"
+              >
+                RESTART
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             FULL MAP
+        ========================== -->
+
+        <div
+          id="map-overlay"
+          class="map-overlay hidden"
+        >
+
+          <div class="map-head">
+
+            <div>
+
+              <p class="eyebrow">
+                CITY MAP
+              </p>
+
+              <h3>
+                PIXEL RUSH
+              </h3>
+
+            </div>
+
+            <button
+              id="map-close"
+              class="close-btn"
+            >
+              ×
+            </button>
+
+          </div>
+
+          <canvas id="full-map"></canvas>
+
+          <p class="map-tip">
+            Your car is marked with a bright dot.
+          </p>
+
+        </div>
+
+
+        <!-- =========================
+             TOUCH CONTROLS
+        ========================== -->
+
+        <div
+          id="touch-controls"
+          class="touch-controls hidden"
+        >
+
+          <button data-control="left">
+            ◀
+          </button>
+
+          <button data-control="brake">
+            BRAKE
+          </button>
+
+          <button data-control="right">
+            ▶
+          </button>
+
+          <button data-control="reverse">
+            ▼
+          </button>
+
+          <button data-control="accelerate">
+            ▲
+          </button>
+
+        </div>
+
+
+        <!-- =========================
+             CONTROL BAR
+        ========================== -->
+
+        <div class="controls-strip">
+
+          <span>
+            <b>W / ↑</b>
+            Accelerate
+          </span>
+
+          <span>
+            <b>S / ↓</b>
+            Reverse
+          </span>
+
+          <span>
+            <b>A / D</b>
+            Steer
+          </span>
+
+          <span>
+            <b>SPACE</b>
+            Brake
+          </span>
+
+          <span>
+            <b>MOUSE</b>
+            Look
+          </span>
+
+          <span>
+            <b>R</b>
+            Reset
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         COMING SOON
+    ========================== -->
+
+    <section id="coming" class="coming">
+
+      <p class="eyebrow">
+        02 / NEXT
+      </p>
+
+      <h2>
+        COMING SOON
+      </h2>
+
+      <p>
+        More games are being built for Pixel Rush.
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         IDEAS
+    ========================== -->
+
+    <section id="ideas" class="ideas">
+
+      <div>
+
+        <p class="eyebrow">
+          HELP SHAPE PIXEL RUSH
+        </p>
+
+        <h2>
+          Have an idea?
+        </h2>
+
+        <p>
+          Send a game idea, feature suggestion or anything
+          you want to see on the site.
+        </p>
+
+      </div>
+
+      <a
+        class="idea-btn"
+        href="mailto:samarthgtb@gmail.com"
+      >
+        EMAIL US →
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-col">
+
+      <span class="footer-label">
+        CREDITS
+      </span>
+
+      <strong>
+        Samarth Singh
+      </strong>
+
+    </div>
+
+
+    <div class="footer-col interactive-card">
+
+      <span class="footer-label">
+        PHONE
+      </span>
+
+      <strong>
+        8708464035
+      </strong>
+
+    </div>
+
+
+    <div class="footer-col interactive-card">
+
+      <span class="footer-label">
+        EMAIL
+      </span>
+
+      <strong>
+        samarthgtb@gmail.com
+      </strong>
+
+    </div>
+
+
+    <div class="footer-bottom">
+      © 2026 Pixel Rush. Built for the browser.
+    </div>
+
+  </footer>
+
+
+  <script
+    type="module"
+    src="game.js"
+  ></script>
+
+</body>
+</html>
